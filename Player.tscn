@@ -2,11 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bb6d026ku5u6f" path="res://Scripts/Player/Player.gd" id="1_e80uo"]
 [ext_resource type="Script" uid="uid://cgwih5gfa6jdi" path="res://Scripts/Player/AnimationController.gd" id="2_cxr5p"]
+[ext_resource type="Script" uid="uid://24ag6eij04nw" path="res://Scripts/Player/InteractionManager.gd" id="2_tdg3f"]
 [ext_resource type="Texture2D" uid="uid://del77oy35rhuy" path="res://Sprites/Character/Baity.png" id="3_tdg3f"]
 [ext_resource type="Texture2D" uid="uid://d2gqsx5q8rfev" path="res://Sprites/Character/Shadow.png" id="4_dtqjt"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e80uo"]
-size = Vector2(16, 5)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xxkd1"]
 particle_flag_disable_z = true
@@ -44,8 +42,18 @@ color_ramp = SubResource("GradientTexture1D_0tyi6")
 turbulence_influence_min = 0.358
 turbulence_influence_max = 0.711
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e80uo"]
+size = Vector2(16, 5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cxr5p"]
+radius = 17.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1118189673]
 script = ExtResource("1_e80uo")
+
+[node name="InteractionManager" type="Node" parent="." unique_id=1269405551 node_paths=PackedStringArray("interaction_area")]
+script = ExtResource("2_tdg3f")
+interaction_area = NodePath("../InteractionArea")
 
 [node name="AnimationController" type="Node2D" parent="." unique_id=922642997]
 script = ExtResource("2_cxr5p")
@@ -67,11 +75,6 @@ z_index = -2
 position = Vector2(0, 11)
 texture = ExtResource("4_dtqjt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1983366308]
-visible = false
-position = Vector2(0, 9.5)
-shape = SubResource("RectangleShape2D_e80uo")
-
 [node name="SweatParticles2D" type="GPUParticles2D" parent="." unique_id=46358186]
 z_index = 1
 position = Vector2(0, -8)
@@ -88,3 +91,13 @@ amount = 15
 preprocess = 0.2
 speed_scale = 1.5
 process_material = SubResource("ParticleProcessMaterial_0tyi6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1983366308]
+visible = false
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_e80uo")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1275278596]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=505024755]
+shape = SubResource("CircleShape2D_cxr5p")

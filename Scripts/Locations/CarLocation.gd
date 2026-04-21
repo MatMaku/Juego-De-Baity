@@ -32,6 +32,8 @@ func _ready() -> void:
 	back_closed.visible = true
 	back_open.visible = false
 
+	_generate()
+
 # ========================
 # GENERATION
 # ========================

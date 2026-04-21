@@ -14,7 +14,6 @@ var is_valid: bool = false
 # ========================
 func setup(valid: bool) -> void:
 	is_valid = valid
-	_generate()
 
 # ========================
 # GENERATION (override)

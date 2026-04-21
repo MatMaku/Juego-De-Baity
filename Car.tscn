@@ -10,54 +10,56 @@
 [ext_resource type="Texture2D" uid="uid://ba7g0qt5ppj06" path="res://Sprites/Cars/Car Shadow.png" id="8_02hxf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnjhp"]
-size = Vector2(52, 13)
+size = Vector2(78, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_02hxf"]
+radius = 21.0
 
 [node name="Car" type="StaticBody2D" unique_id=514366399]
 script = ExtResource("1_w8o8f")
 
 [node name="CarColor" type="Sprite2D" parent="." unique_id=634225864]
 z_index = -1
-position = Vector2(-1, -2.5)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_02hxf")
 
 [node name="CarColorOpen" type="Sprite2D" parent="." unique_id=1929260733]
 visible = false
 z_index = -1
-position = Vector2(-5, -2)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_4iter")
 
 [node name="CarFront" type="Sprite2D" parent="." unique_id=124052269]
-position = Vector2(-1, -2.5)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_byqlc")
 
 [node name="CarFrontLight" type="Sprite2D" parent="." unique_id=1409924532]
 visible = false
-position = Vector2(-5, -2)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_2q5ox")
 
 [node name="CarBack" type="Sprite2D" parent="." unique_id=1436051603]
-position = Vector2(-1, -2.5)
+visible = false
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_ynajl")
 
 [node name="CarBackOpen" type="Sprite2D" parent="." unique_id=188698554]
-visible = false
-position = Vector2(-5, -2)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_pfg5i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=708300384]
 visible = false
-position = Vector2(-1, 5)
-scale = Vector2(1.5, 1.5)
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_cnjhp")
 
 [node name="CarShadow" type="Sprite2D" parent="." unique_id=1694277311]
 z_index = -2
-position = Vector2(-1, 10)
+position = Vector2(0, 14.000001)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("8_02hxf")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1752123841]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1259535075]
+position = Vector2(12, 13)
+shape = SubResource("CircleShape2D_02hxf")

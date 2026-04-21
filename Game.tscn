@@ -1,12 +1,41 @@
 [gd_scene format=3 uid="uid://bb7so5e1c3hew"]
 
 [ext_resource type="PackedScene" uid="uid://dgswahpuxboyx" path="res://Player.tscn" id="1_wbfu4"]
+[ext_resource type="Script" uid="uid://b365xshtf4dpy" path="res://Scripts/GameManager.gd" id="1_xkndl"]
 [ext_resource type="PackedScene" uid="uid://ctobiimfxat3e" path="res://Car.tscn" id="2_xkndl"]
 
 [node name="Game" type="Node2D" unique_id=463400511]
 
-[node name="Car" parent="." unique_id=514366399 instance=ExtResource("2_xkndl")]
-position = Vector2(94, 48)
+[node name="GameManager" type="Node" parent="." unique_id=2011788218 node_paths=PackedStringArray("player", "player_spawn", "spawn_container")]
+script = ExtResource("1_xkndl")
+player = NodePath("../Player")
+player_spawn = NodePath("../PlayerSpawn")
+spawn_container = NodePath("../SpawnPoints")
+car_scene = ExtResource("2_xkndl")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=54953561]
+zoom = Vector2(5, 5)
 
 [node name="Player" parent="." unique_id=1118189673 instance=ExtResource("1_wbfu4")]
-position = Vector2(25, 25)
+
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=2117131263]
+
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=1785834179]
+
+[node name="Slot1" type="Marker2D" parent="SpawnPoints" unique_id=1661390340]
+position = Vector2(-100, -80)
+
+[node name="Slot2" type="Marker2D" parent="SpawnPoints" unique_id=779529844]
+position = Vector2(-100, 0)
+
+[node name="Slot3" type="Marker2D" parent="SpawnPoints" unique_id=1832474696]
+position = Vector2(-100, 80)
+
+[node name="Slot4" type="Marker2D" parent="SpawnPoints" unique_id=2005526041]
+position = Vector2(100, -80)
+
+[node name="Slot5" type="Marker2D" parent="SpawnPoints" unique_id=1642479068]
+position = Vector2(100, 0)
+
+[node name="Slot6" type="Marker2D" parent="SpawnPoints" unique_id=50454371]
+position = Vector2(100, 80)
