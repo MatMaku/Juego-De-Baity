@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://del77oy35rhuy"
-path="res://.godot/imported/Baity.png-9010d8429c657697e41d137c22c13159.ctex"
+path="res://.godot/imported/Baity.png-d29fab0002b9440cb551bb53673a75f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Baity.png"
-dest_files=["res://.godot/imported/Baity.png-9010d8429c657697e41d137c22c13159.ctex"]
+source_file="res://Sprites/Character/Baity.png"
+dest_files=["res://.godot/imported/Baity.png-d29fab0002b9440cb551bb53673a75f0.ctex"]
 
 [params]
 

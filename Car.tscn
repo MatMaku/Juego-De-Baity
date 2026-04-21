@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://ctobiimfxat3e"]
+
+[ext_resource type="Script" uid="uid://bpftsakrpq5v5" path="res://Scripts/Locations/CarLocation.gd" id="1_w8o8f"]
+[ext_resource type="Texture2D" uid="uid://bcaoxan05gnqj" path="res://Sprites/Cars/Car Color.png" id="2_02hxf"]
+[ext_resource type="Texture2D" uid="uid://pnrrnibojug4" path="res://Sprites/Cars/Car Color Open.png" id="3_4iter"]
+[ext_resource type="Texture2D" uid="uid://bdx7gvwvrkuaq" path="res://Sprites/Cars/Car Front.png" id="4_byqlc"]
+[ext_resource type="Texture2D" uid="uid://bkmt3ojit8kj4" path="res://Sprites/Cars/Car Front Light.png" id="5_2q5ox"]
+[ext_resource type="Texture2D" uid="uid://bmxkp5w38emgt" path="res://Sprites/Cars/Car Back.png" id="6_ynajl"]
+[ext_resource type="Texture2D" uid="uid://c4irnpmslamms" path="res://Sprites/Cars/Car Back Open.png" id="7_pfg5i"]
+[ext_resource type="Texture2D" uid="uid://ba7g0qt5ppj06" path="res://Sprites/Cars/Car Shadow.png" id="8_02hxf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnjhp"]
+size = Vector2(52, 13)
+
+[node name="Car" type="StaticBody2D" unique_id=514366399]
+script = ExtResource("1_w8o8f")
+
+[node name="CarColor" type="Sprite2D" parent="." unique_id=634225864]
+z_index = -1
+position = Vector2(-1, -2.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_02hxf")
+
+[node name="CarColorOpen" type="Sprite2D" parent="." unique_id=1929260733]
+visible = false
+z_index = -1
+position = Vector2(-5, -2)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_4iter")
+
+[node name="CarFront" type="Sprite2D" parent="." unique_id=124052269]
+position = Vector2(-1, -2.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_byqlc")
+
+[node name="CarFrontLight" type="Sprite2D" parent="." unique_id=1409924532]
+visible = false
+position = Vector2(-5, -2)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_2q5ox")
+
+[node name="CarBack" type="Sprite2D" parent="." unique_id=1436051603]
+position = Vector2(-1, -2.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_ynajl")
+
+[node name="CarBackOpen" type="Sprite2D" parent="." unique_id=188698554]
+visible = false
+position = Vector2(-5, -2)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_pfg5i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=708300384]
+visible = false
+position = Vector2(-1, 5)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_cnjhp")
+
+[node name="CarShadow" type="Sprite2D" parent="." unique_id=1694277311]
+z_index = -2
+position = Vector2(-1, 10)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_02hxf")

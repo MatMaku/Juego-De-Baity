@@ -8,6 +8,9 @@ class_name Player
 @export var acceleration: float = 800.0
 @export var friction: float = 600.0
 
+# Y-SORT
+@export var y_sort_offset: int = 0
+
 # ========================
 # STATE
 # ========================
@@ -20,6 +23,8 @@ func _physics_process(delta: float) -> void:
 	_read_input()
 	_update_movement(delta)
 	move_and_slide()
+
+	_update_z_index()
 
 # ========================
 # INPUT
@@ -41,7 +46,13 @@ func _update_movement(delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 # ========================
-# API (para AnimationController)
+# Y SORT
+# ========================
+func _update_z_index() -> void:
+	z_index = int(global_position.y) + y_sort_offset
+
+# ========================
+# API
 # ========================
 func get_current_velocity() -> Vector2:
 	return velocity

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BaityJuego"
-run/main_scene="uid://dgswahpuxboyx"
+run/main_scene="uid://bb7so5e1c3hew"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

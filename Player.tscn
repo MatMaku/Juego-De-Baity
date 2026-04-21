@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dgswahpuxboyx"]
 
-[ext_resource type="Script" uid="uid://bb6d026ku5u6f" path="res://Scripts/Player.gd" id="1_e80uo"]
-[ext_resource type="Script" uid="uid://cgwih5gfa6jdi" path="res://Scripts/AnimationController.gd" id="2_cxr5p"]
-[ext_resource type="Texture2D" uid="uid://del77oy35rhuy" path="res://Sprites/Baity.png" id="3_tdg3f"]
-[ext_resource type="Texture2D" uid="uid://dqblewisjvemy" path="res://Sprites/Shadow.png" id="4_dtqjt"]
+[ext_resource type="Script" uid="uid://bb6d026ku5u6f" path="res://Scripts/Player/Player.gd" id="1_e80uo"]
+[ext_resource type="Script" uid="uid://cgwih5gfa6jdi" path="res://Scripts/Player/AnimationController.gd" id="2_cxr5p"]
+[ext_resource type="Texture2D" uid="uid://del77oy35rhuy" path="res://Sprites/Character/Baity.png" id="3_tdg3f"]
+[ext_resource type="Texture2D" uid="uid://d2gqsx5q8rfev" path="res://Sprites/Character/Shadow.png" id="4_dtqjt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e80uo"]
 size = Vector2(16, 5)
@@ -44,9 +44,8 @@ color_ramp = SubResource("GradientTexture1D_0tyi6")
 turbulence_influence_min = 0.358
 turbulence_influence_max = 0.711
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1118189673]
+[node name="Player" type="CharacterBody2D" unique_id=1118189673]
 script = ExtResource("1_e80uo")
-speed = 120.0
 
 [node name="AnimationController" type="Node2D" parent="." unique_id=922642997]
 script = ExtResource("2_cxr5p")
@@ -65,8 +64,7 @@ texture = ExtResource("3_tdg3f")
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=293132679]
 z_index = -2
-position = Vector2(2.9802322e-08, 12)
-scale = Vector2(1.3125, 1)
+position = Vector2(0, 11)
 texture = ExtResource("4_dtqjt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1983366308]
@@ -76,7 +74,7 @@ shape = SubResource("RectangleShape2D_e80uo")
 
 [node name="SweatParticles2D" type="GPUParticles2D" parent="." unique_id=46358186]
 z_index = 1
-position = Vector2(0, -9)
+position = Vector2(0, -8)
 emitting = false
 amount_ratio = 0.5
 lifetime = 0.5
@@ -84,7 +82,7 @@ process_material = SubResource("ParticleProcessMaterial_xxkd1")
 
 [node name="DustParticles2D" type="GPUParticles2D" parent="." unique_id=199529791]
 z_index = -1
-position = Vector2(0, 8)
+position = Vector2(0, 9)
 emitting = false
 amount = 15
 preprocess = 0.2

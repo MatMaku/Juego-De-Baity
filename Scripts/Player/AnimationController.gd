@@ -98,11 +98,9 @@ func _apply_idle_animation(delta: float) -> void:
 func _update_particles() -> void:
 	var moving: bool = _player.is_moving()
 
-	# 💨 Dust continuo
 	if _dust:
 		_dust.emitting = moving
 
-	# 💦 Sweat
 	if _sweat:
 		_sweat.emitting = sweat_enabled
 		
