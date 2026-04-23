@@ -43,10 +43,10 @@ turbulence_influence_min = 0.358
 turbulence_influence_max = 0.711
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e80uo"]
-size = Vector2(16, 5)
+size = Vector2(12, 5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxr5p"]
-radius = 17.0
+radius = 13.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1118189673]
 script = ExtResource("1_e80uo")
@@ -93,7 +93,6 @@ speed_scale = 1.5
 process_material = SubResource("ParticleProcessMaterial_0tyi6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1983366308]
-visible = false
 position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_e80uo")
 

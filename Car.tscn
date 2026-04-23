@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ba7g0qt5ppj06" path="res://Sprites/Cars/Car Shadow.png" id="8_02hxf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnjhp"]
-size = Vector2(78, 18)
+size = Vector2(74, 18)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_02hxf"]
 radius = 21.0
@@ -48,7 +48,6 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_pfg5i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=708300384]
-visible = false
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_cnjhp")
 

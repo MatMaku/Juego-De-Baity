@@ -17,6 +17,7 @@ extends UsableLocation
 # ========================
 var door_open: bool = false
 var light_on: bool = false
+var facing_right: bool = false
 
 # ========================
 # INIT SAFETY
@@ -39,6 +40,7 @@ func _ready() -> void:
 # ========================
 func _generate() -> void:
 	_randomize_color()
+	_randomize_direction()
 
 	if is_valid:
 		_generate_valid()
@@ -63,6 +65,12 @@ func _generate_invalid() -> void:
 			break
 
 # ========================
+# DIRECTION
+# ========================
+func _randomize_direction() -> void:
+	facing_right = randf() < 0.5
+
+# ========================
 # VISUALS
 # ========================
 func _apply_visuals() -> void:
@@ -78,13 +86,15 @@ func _apply_visuals() -> void:
 	back_closed.visible = not door_open
 	back_open.visible = door_open
 
+	# DIRECCIÓN (flip horizontal)
+	scale.x = 1 if facing_right else -1
+
 # ========================
 # COLOR
 # ========================
 func _randomize_color() -> void:
 	var color: Color = _get_random_color()
 
-	# Ambos bodies reciben el mismo color
 	body_closed.modulate = color
 	body_open.modulate = color
 

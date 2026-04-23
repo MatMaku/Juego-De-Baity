@@ -5,48 +5,75 @@ extends Node
 # ========================
 @export var player: Player
 @export var player_spawn: Marker2D
-@export var spawn_container: Node2D
 @export var car_scene: PackedScene
+@export var camera: Camera2D
+@export var ui: UIController   # 🔥 NUEVO
 
 # ========================
-# CONFIG
+# STAGE CONFIG
+# ========================
+@export var spawn_containers: Array[Node2D]
+@export var camera_zooms: Array[float]
+@export var player_speeds: Array[float]
+
+@export var zoom_lerp_speed: float = 10.0
+
+# ========================
+# TIMER CONFIG
 # ========================
 @export var base_time: float = 5.0
 @export var time_decrease_per_round: float = 0.05
 @export var min_time: float = 2.5
 
+# ========================
+# GAME CONFIG
+# ========================
 @export var initial_car_count: int = 2
 
 # ========================
 # STATE
 # ========================
 var current_cars: Array[UsableLocation] = []
-var spawn_points: Array[Marker2D] = []
+var current_spawn_points: Array[Marker2D] = []
 
 var score: int = 0
 var current_car_count: int = 0
 
 var time_left: float = 0.0
+var current_round_time: float = 0.0   # 🔥 NUEVO (max real del round)
+
 var is_round_active: bool = false
+
+var current_stage: int = 0
+var target_zoom: float = 1.0
+
+# 🔥 OPTIMIZACIÓN (capacidades acumuladas)
+var stage_capacities: Array[int] = []
 
 # ========================
 # INIT
 # ========================
 func _ready() -> void:
-	_collect_spawn_points()
+	_cache_stage_capacities()
 	start_game()
 
 # ========================
 # LOOP
 # ========================
 func _process(delta: float) -> void:
-	if not is_round_active:
-		return
+	if is_round_active:
+		time_left -= delta
+		if time_left <= 0:
+			_on_time_out()
 
-	time_left -= delta
+	# 🔥 UI UPDATE
+	if ui:
+		ui.update_ui(score, time_left, current_round_time, delta)
 
-	if time_left <= 0:
-		_on_time_out()
+	# Zoom suave
+	if camera:
+		var target := Vector2(target_zoom, target_zoom)
+		camera.zoom = camera.zoom.lerp(target, zoom_lerp_speed * delta)
 
 # ========================
 # GAME FLOW
@@ -54,11 +81,16 @@ func _process(delta: float) -> void:
 func start_game() -> void:
 	score = 0
 	current_car_count = initial_car_count
+	current_stage = 0
+	
+	_apply_stage()
 	_start_round()
 
 func next_round() -> void:
 	score += 1
 	current_car_count += 1
+	
+	_update_stage()
 	_start_round()
 
 func _start_round() -> void:
@@ -70,6 +102,52 @@ func _start_round() -> void:
 	_reset_timer()
 
 # ========================
+# STAGE SYSTEM
+# ========================
+func _update_stage() -> void:
+	if stage_capacities.is_empty():
+		return
+
+	var current_capacity := stage_capacities[current_stage]
+
+	if current_car_count > current_capacity:
+		var next_stage := current_stage + 1
+		next_stage = clamp(next_stage, 0, spawn_containers.size() - 1)
+
+		if next_stage != current_stage:
+			current_stage = next_stage
+			_apply_stage()
+
+func _apply_stage() -> void:
+	_collect_spawn_points()
+
+	# Cámara
+	if current_stage < camera_zooms.size():
+		target_zoom = camera_zooms[current_stage]
+
+	# Velocidad
+	if current_stage < player_speeds.size():
+		player.speed = player_speeds[current_stage]
+
+# ========================
+# CACHE (CAPACIDAD ACUMULADA)
+# ========================
+func _cache_stage_capacities() -> void:
+	stage_capacities.clear()
+
+	var total := 0
+
+	for container in spawn_containers:
+		var count := 0
+		
+		for child in container.get_children():
+			if child is Marker2D:
+				count += 1
+		
+		total += count
+		stage_capacities.append(total)
+
+# ========================
 # PLAYER
 # ========================
 func _reset_player() -> void:
@@ -77,18 +155,23 @@ func _reset_player() -> void:
 	player.velocity = Vector2.ZERO
 
 # ========================
-# SPAWN SYSTEM
+# SPAWN SYSTEM (ACUMULATIVO)
 # ========================
 func _collect_spawn_points() -> void:
-	for child in spawn_container.get_children():
-		if child is Marker2D:
-			spawn_points.append(child)
+	current_spawn_points.clear()
+
+	for i in range(current_stage + 1):
+		var container = spawn_containers[i]
+
+		for child in container.get_children():
+			if child is Marker2D:
+				current_spawn_points.append(child)
 
 func _spawn_cars() -> void:
-	var available_points = spawn_points.duplicate()
+	var available_points = current_spawn_points.duplicate()
 	available_points.shuffle()
 
-	var car_count: int = clamp(current_car_count, 1, spawn_points.size())
+	var car_count: int = clamp(current_car_count, 1, current_spawn_points.size())
 	var selected_points = available_points.slice(0, car_count)
 
 	var valid_index: int = randi() % selected_points.size()
@@ -109,7 +192,8 @@ func _spawn_cars() -> void:
 # ========================
 func _reset_timer() -> void:
 	var t: float = base_time - (score * time_decrease_per_round)
-	time_left = max(min_time, t)
+	current_round_time = max(min_time, t)   # 🔥 guardamos max real
+	time_left = current_round_time
 
 # ========================
 # CLEANUP
